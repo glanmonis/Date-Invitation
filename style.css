@@ -12,9 +12,11 @@ body {
     /* Subtle dot pattern simulating the background */
     font-family: 'Inter', sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    padding: 24px 0;
     color: #4a3b42;
     overflow-x: hidden;
     overflow-y: auto;
@@ -41,6 +43,15 @@ body {
 
 .screen.active {
     display: flex;
+}
+
+.page-footer {
+    width: 90%;
+    max-width: 450px;
+    margin-top: 16px;
+    color: #a08c95;
+    font-size: 11px;
+    text-align: center;
 }
 
 @keyframes fadeIn {
@@ -169,6 +180,7 @@ p {
     width: 100%;
     text-align: left;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .input-group label {
@@ -195,6 +207,11 @@ p {
 .input-group input:focus,
 .input-group select:focus {
     border-color: #e45b85;
+}
+
+.input-group input,
+.input-group select {
+    cursor: pointer;
 }
 
 /* Food Grid (Screen 4) */
@@ -238,6 +255,11 @@ p {
     border-radius: 12px;
     background: #faf5f7;
     text-align: left;
+}
+
+#pickup-next {
+    width: 100%;
+    margin-top: 20px;
 }
 
 .pickup-question legend {
@@ -370,6 +392,10 @@ p {
     color: #4a3b42;
 }
 
+.location-item[hidden] {
+    display: none;
+}
+
 .location-item:hover {
     background: #fdf2f6;
     border-color: #e45b85;
@@ -384,6 +410,13 @@ p {
 .location-emoji {
     font-size: 30px;
     margin-bottom: 7px;
+}
+
+.location-area {
+    margin-top: 4px;
+    color: #a08c95;
+    font-size: 11px;
+    font-weight: 400;
 }
 
 
@@ -545,12 +578,17 @@ p {
     }
 
     .button-group {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        gap: 12px;
     }
 
     .button-group .btn {
-        width: 100%;
+        flex: 1 1 0;
+        width: auto;
+        min-width: 0;
+        min-height: 44px;
+        padding: 11px 12px;
+        font-size: clamp(12px, 3.5vw, 14px);
     }
 
     .food-options {

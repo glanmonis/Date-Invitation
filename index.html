@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
 
 <head>
     <meta charset="UTF-8">
@@ -15,27 +15,18 @@
 </head>
 
 <body>
-
-
-
-
     <!-- Background Music -->
-    <audio id="backgroundMusic" loop>
+    <audio id="backgroundMusic" loop preload="auto">
         <source src="Images/Ajab Si.mp3" type="audio/mpeg">
     </audio>
-
     <!-- Music Button -->
     <button id="musicToggle" class="music-toggle">🔇</button>
-
-
-
 
     <div id="card-container">
         <!-- Screen 1: The Ask -->
         <div id="screen-1" class="screen active">
             <img src="Images/glan.jpg" alt="My photo" class="profile-pic">
-            <h1>🌸 Will you go on a date with me🥺? 🌸</h1>
-            <!-- <p>I have something special planned for us 🌸</p> -->
+            <h1>🌸 Will you go on a date with me? 🥺🌸</h1>
             <div class="button-group">
                 <button id="btn-yes" class="btn primary">YES ♥</button>
                 <button id="btn-no" class="btn secondary">No ✖</button>
@@ -45,23 +36,23 @@
         <!-- Screen 2: The Surprise -->
         <div id="screen-2" class="screen hidden">
             <img src="Images/bg.webp" alt="Cute Dog" class="profile-pic">
-            <h1>WAIT YOU ACTUALLY SAID YES??</h1>
-            <p>I was so ready for you to say no...😅</p>
-            <button class="btn primary next-btn" data-next="screen-3">okay okay! →</button>
+            <h1>Wait, you actually said yes?!</h1>
+            <p>I was so ready for you to say no... 😅</p>
+            <button class="btn primary next-btn" data-next="screen-3">Okay, okay! →</button>
         </div>
 
         <!-- Screen 3: Date and Time -->
         <div id="screen-3" class="screen hidden">
             <img src="Images/bg1.gif" alt="Cute animation" class="profile-pic">
-            <h1>So... when are you free?</h1>
+            <h1>So, when are you free?</h1>
 
-            <div class="input-group">
-                <label for="date-input">Pick a Day 🗓</label>
-                <input type="date" id="date-input">
+            <div class="input-group" id="dateGroup">
+                <label for="date-input">Choose a date 🗓</label>
+                <input type="date" id="date-input" lang="en-GB">
             </div>
 
             <div class="input-group" id="timeGroup">
-                <label for="time-input">What Time? ⌚</label>
+                <label for="time-input">What time works for you? ⌚</label>
                 <select id="time-input">
                     <option value="" disabled selected>Select a time...</option>
                     <option>12:00 PM</option>
@@ -76,129 +67,177 @@
                     <option>4:30 PM</option>
                 </select>
             </div>
-
-            <!-- <div class="input-group">
-                <label for="place-input">Select a Place 📍</label>
-                <select id="place-input">
-                    <option value="" disabled selected>Select a place...</option>
-                    <option>K9 Restro</option>
-                    <option>Tannirbhavi Beach</option>
-                    <option>Surathkal Beach</option>
-                    <option>Someshwara Beach</option>
-                    <option>Kadri Park</option>
-                    <option>Kadri Park</option>
-                    <option>Bekal Fort</option>
-                </select>
-            </div> -->
-
-
-            <button class="btn primary next-btn" data-next="screen-4">set the date! ♥</button>
+            <button class="btn primary next-btn" data-next="screen-4">Set the date! ♥</button>
         </div>
 
-
-        <!-- Screen 4: The Vibe -->
+        <!-- Screen 4: Choose a date style -->
         <div id="screen-4" class="screen hidden">
-            <h1>Where are we going? 📍💕</h1>
-            <p>pick a place for our date</p>
-
-            <div class="location-grid">
-
-                <div class="location-item" data-location="K9 Restro" data-next="screen-5">
-                    <span class="location-emoji">🍽️</span>
-                    <span>K9 Restro</span>
-                </div>
-
-                <div class="location-item" data-location="Tannirbhavi Beach" data-next="screen-5">
-                    <span class="location-emoji">🏖️</span>
-                    <span>Tannirbhavi Beach</span>
-                </div>
-
-                <div class="location-item" data-location="Surathkal Beach" data-next="screen-5">
-                    <span class="location-emoji">🌊</span>
-                    <span>Surathkal Beach</span>
-                </div>
-
-                <div class="location-item" data-location="Someshwara Beach" data-next="screen-5">
-                    <span class="location-emoji">🌅</span>
-                    <span>Someshwara Beach</span>
-                </div>
-
-                <div class="location-item" data-location="Kadri Park" data-next="screen-5">
-                    <span class="location-emoji">🌳</span>
-                    <span>Kadri Park</span>
-                </div>
-
-                <div class="location-item" data-location="Bekal Fort" data-next="screen-5">
-                    <span class="location-emoji">🏰</span>
-                    <span>Bekal Fort</span>
-                </div>
-
-            </div>
-
-            <!-- Custom Location -->
-            <div class="custom-location">
-                <label for="custom-place">
-                    Can't find your place? 💭
-                </label>
-
-                <div class="custom-input-wrapper">
-                    <span>📍</span>
-                    <input type="text" id="custom-place" placeholder="Type another place...">
-                </div>
-
-                <button class="btn primary custom-location-btn" id="custom-location-btn">
-                    Let's go there 💕
-                </button>
-            </div>
-        </div>
-
-        <!-- Screen 5: The Vibe -->
-        <div id="screen-5" class="screen hidden">
-
-            <h1>What kind of date are we having? 🍽✨</h1>
-
-            <p>pick your vibe</p>
+            <h1>What kind of date would you like? 🍽✨</h1>
+            <p>Pick the vibe you like.</p>
 
             <div class="food-options">
 
-                <div class="food-item" data-food="Coffee" data-next="screen-6">
+                <div class="food-item" data-food="Cozy">
                     <span class="food-emoji">☕</span>
                     <span>Cozy</span>
                 </div>
 
-                <div class="food-item" data-food="Dinner" data-next="screen-6">
+                <div class="food-item" data-food="Foodie">
                     <span class="food-emoji">🍽️</span>
                     <span>Foodie</span>
                 </div>
 
-                <div class="food-item" data-food="Movies" data-next="screen-6">
+                <div class="food-item" data-food="Movies">
                     <span class="food-emoji">🍿</span>
                     <span>Movies</span>
                 </div>
 
-                <div class="food-item" data-food="Park Walk" data-next="screen-6">
+                <div class="food-item" data-food="Park Walk">
                     <span class="food-emoji">🌳</span>
                     <span>Park Walk</span>
                 </div>
 
-                <div class="food-item" data-food="Tacos" data-next="screen-6">
+                <div class="food-item" data-food="Sunset">
                     <span class="food-emoji">🌅</span>
                     <span>Sunset</span>
                 </div>
 
-                <!-- <div class="food-item" data-food="Ramen" data-next="screen-6">
-                    <span class="food-emoji">🍜</span>
-                    <span>Ramen</span>
-                </div> -->
-                <div class="food-item" data-food="Ramen" data-next="screen-6">
+                <div class="food-item" data-food="Beach">
                     <span class="food-emoji">🌊</span>
                     <span>Beach</span>
                 </div>
 
+                <div class="food-item" data-food="Explore">
+                    <span class="food-emoji">🧭</span>
+                    <span>Explore</span>
+                </div>
+
             </div>
 
+        </div>
+
+        <!-- Screen 5: Choose a place for the selected date style -->
+        <div id="screen-5" class="screen hidden">
+            <h1>Where would you like to go? 📍💕</h1>
+            <p id="location-prompt">Choose a place for your date.</p>
+
+            <div class="location-grid">
+                <div class="location-item" data-location="k9 Restro" data-vibes="Cozy,Foodie"
+                    data-next="screen-6">
+                    <span class="location-emoji">🍽️</span>
+                    <span>k9 Restro</span>
+                </div>
+                <div class="location-item" data-location="k9 Restro" data-vibes="Cozy,Foodie"
+                    data-next="screen-6">
+                    <span class="location-emoji">🍽️</span>
+                    <span>Restro 2</span>
+                </div>
+
+                <div class="location-item" data-location="Surathkal Beach" data-vibes="Beach,Sunset"
+                    data-next="screen-6">
+                    <span class="location-emoji">🌊</span>
+                    <span>Surathkal Beach</span>
+                </div>
+
+                <div class="location-item" data-location="Kadri Park" data-vibes="Park Walk" data-next="screen-6">
+                    <span class="location-emoji">🌳</span>
+                    <span>Kadri Park</span>
+                </div>
+
+                <div class="location-item" data-location="Pilikula, Mangalore" data-vibes="Park Walk"
+                    data-next="screen-6">
+                    <span class="location-emoji">🦋</span>
+                    <span>Pilikula</span>
+                    <span class="location-area">Mangalore</span>
+                </div>
+
+                <div class="location-item" data-location="Malpe Beach, Udupi" data-vibes="Beach,Sunset"
+                    data-next="screen-6">
+                    <span class="location-emoji">🏝️</span>
+                    <span>Malpe Beach</span>
+                    <span class="location-area">Udupi</span>
+                </div>
+
+                <div class="location-item" data-location="Kaup Beach, Udupi" data-vibes="Beach,Sunset"
+                    data-next="screen-6">
+                    <span class="location-emoji">🗼</span>
+                    <span>Kaup Beach</span>
+                    <span class="location-area">Udupi</span>
+                </div>
+
+                <div class="location-item" data-location="Someshwara Beach" data-vibes="Beach,Sunset"
+                    data-next="screen-6">
+                    <span class="location-emoji">🌅</span>
+                    <span>Someshwara Beach</span>
+                </div>
+
+                <div class="location-item" data-location="Tannirbhavi Beach" data-vibes="Beach,Sunset"
+                    data-next="screen-6">
+                    <span class="location-emoji">🏖️</span>
+                    <span>Mangalore</span>
+                </div>
+
+                <div class="location-item" data-location="Panambur Beach, Mangalore" data-vibes="Beach,Sunset"
+                    data-next="screen-6">
+                    <span class="location-emoji">🌴</span>
+                    <span>Panambur Beach</span>
+                    <span class="location-area">Mangalore</span>
+                </div>
+
+                <div class="location-item" data-location="Cinema (choose a theatre)" data-vibes="Movies"
+                    data-next="screen-6">
+                    <span class="location-emoji">🎬</span>
+                    <span>Cinema</span>
+                    <span class="location-area">Choose a theatre</span>
+                </div>
+
+                <div class="location-item" data-location="Bekal Fort" data-vibes="Explore" data-next="screen-6">
+                    <span class="location-emoji">🏰</span>
+                    <span>Bekal Fort</span>
+                </div>
+                
+                <div class="location-item" data-location="Church, Udupi" data-vibes="Explore"
+                    data-next="screen-6">
+                    <span class="location-emoji">⛪</span>
+                    <span>Church</span>
+                    <span class="location-area">Udupi</span>
+                </div>
+
+                 <div class="location-item" data-location="Sri Krishna Matha, Udupi" data-vibes="Explore"
+                    data-next="screen-6">
+                    <span class="location-emoji">🛕</span>
+                    <span>Sri Krishna Matha</span>
+                    <span class="location-area">Udupi</span>
+                </div>
+
+                <div class="location-item" data-location="Sultan Battery, Mangalore" data-vibes="Explore"
+                    data-next="screen-6">
+                    <span class="location-emoji">⛵</span>
+                    <span>Sultan Battery</span>
+                    <span class="location-area">Mangalore</span>
+                </div>
+            </div>
+
+            <div class="custom-location">
+                <label for="custom-place">Can't find your place? 💭</label>
+                <div class="custom-input-wrapper">
+                    <span>📍</span>
+                    <input type="text" id="custom-place" placeholder="Enter another place...">
+                </div>
+                <button class="btn primary custom-location-btn" id="custom-location-btn">
+                    Let's go there! 💕
+                </button>
+            </div>
+
+            <button class="btn primary next-btn" data-next="screen-4">Back</button>
+            
+        </div>
+
+        <!-- Screen 6: Pickup preference -->
+        <div id="screen-6" class="screen hidden">
+            <h1>Would you like me to pick you up? 🚲</h1>
             <fieldset class="pickup-question">
-                <legend>Do you want me to pick you up? 🚲</legend>
+                <legend>Choose one option</legend>
                 <label>
                     <input type="radio" name="pickup" value="Yes">
                     Yes, please
@@ -209,16 +248,16 @@
                 </label>
                 <div id="pickup-location-group" class="pickup-location-group" hidden>
                     <label for="pickup-location">Where should I pick you up? 📍</label>
-                    <input type="text" id="pickup-location" placeholder="Enter your pickup location">
+                    <input type="text" id="pickup-location" placeholder="Enter your pickup address">
                 </div>
             </fieldset>
-
+            <button class="btn primary" id="pickup-next">Continue →</button>
         </div>
-       
-        <!-- Screen 6: Confirmation -->
-        <div id="screen-6" class="screen hidden">
-            <h1 class="small-h1">glad you didn't say no. be ready by <span id="ready-time"></span>, I'm coming to get you 🚲</h1>
-            <p class="tiny-text">Here is what she selected:</p>
+
+        <!-- Screen 7: Confirmation -->
+        <div id="screen-7" class="screen hidden">
+            <h1 class="small-h1">It's a date! Be ready by <span id="ready-time"></span>. 💕</h1>
+            <p class="tiny-text">Here are the details:</p>
             <div class="date-summary">
                 <p>Date: <span id="summary-date"></span></p>
                 <p>Time: <span id="summary-time"></span></p>
@@ -228,11 +267,8 @@
                 <p>Pickup location: <span id="summary-pickup-location"></span></p>
             </div>
             <div class="hearts">♥️ ♥️ ♥️ ♥️ ♥️</div>
-            <button class="btn primary next-btn" data-next="screen-8">ok I accept 🥹</button>
+            <button class="btn primary next-btn" data-next="screen-8">Okay, I accept! 🥹</button>
         </div>
-
-        
-
 
         <!-- Screen 8: Notification -->
         <div id="screen-8" class="screen hidden">
@@ -241,10 +277,7 @@
 
             <h1>Awesome! It's a plan. 💕</h1>
 
-            <p>
-                Everything is ready.
-                Click below to send me a notification so I can lock it in.
-            </p>
+            <p>Everything is ready! Send me a message below so I can confirm our plans.</p>
 
             <div class="notification-actions">
                 <button id="notifyButton" class="btn primary">
@@ -254,9 +287,9 @@
                     Send on WhatsApp 💬
                 </button>
             </div>
-
         </div>
     </div>
+    <footer class="page-footer">Developed by Glan for ❤️‍🩹</footer>
     <script src="script.js"></script>
 </body>
 

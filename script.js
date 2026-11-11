@@ -50,6 +50,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const pickupLocationInput =
         document.getElementById("pickup-location");
 
+    const pickupNextButton =
+        document.getElementById("pickup-next");
 
     // ========================================
     // SCREEN NAVIGATION
@@ -156,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const randomY =
             Math.floor(Math.random() * Math.max(maxY, 20));
 
+        noButton.style.width = buttonWidth + "px";
         noButton.style.position = "fixed";
         noButton.style.left = randomX + "px";
         noButton.style.top = randomY + "px";
@@ -223,6 +226,25 @@ document.addEventListener("DOMContentLoaded", () => {
     dateInput.max =
         formatDate(maxDate);
 
+    document.getElementById("dateGroup").addEventListener("click", event => {
+        if (event.target === event.currentTarget) {
+            if (typeof dateInput.showPicker === "function") {
+                dateInput.showPicker();
+            } else {
+                dateInput.focus();
+            }
+        }
+    });
+
+    document.getElementById("timeGroup").addEventListener("click", event => {
+        if (event.target === event.currentTarget) {
+            if (typeof timeInput.showPicker === "function") {
+                timeInput.showPicker();
+            } else {
+                timeInput.focus();
+            }
+        }
+    });
 
         
     // ========================================
@@ -280,26 +302,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
 
 
-                    // --------------------------------
-                    // SCREEN 6
-                    // --------------------------------
-
-                    if (
-                        button.closest("#screen-6")
-                    ) {
-
-                        console.log(
-                            "Final Date Details:",
-                            {
-                                date: selectedDate,
-                                time: selectedTime,
-                                place: selectedPlace,
-                                vibe: selectedVibe
-                            }
-                        );
-                    }
-
-
                     switchScreen(nextScreen);
 
                 }
@@ -309,11 +311,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // ========================================
-    // SCREEN 4 - LOCATION SELECTION
+    // SCREEN 5 - LOCATION SELECTION
     // ========================================
 
     document.querySelectorAll(
-        "#screen-4 .location-item"
+        "#screen-5 .location-item"
     ).forEach(item => {
 
         item.addEventListener(
@@ -329,7 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 );
 
                 const nextScreen =
-                    item.dataset.next || "screen-5";
+                    item.dataset.next || "screen-6";
 
                 switchScreen(nextScreen);
 
@@ -395,14 +397,14 @@ document.addEventListener("DOMContentLoaded", () => {
             );
 
 
-            switchScreen("screen-5");
+            switchScreen("screen-6");
 
         }
     );
 
 
     // ========================================
-    // SCREEN 5 - VIBE SELECTION
+    // SCREEN 4 - DATE STYLE SELECTION
     // ========================================
 
     document.querySelectorAll("input[name='pickup']")
@@ -419,115 +421,85 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
     document.querySelectorAll(
-        "#screen-5 .food-item"
+        "#screen-4 .food-item"
     ).forEach(item => {
 
         item.addEventListener(
             "click",
             () => {
-
-                const pickupChoice =
-                    document.querySelector("input[name='pickup']:checked");
-
-                if (!pickupChoice) {
-                    alert("Please choose whether you need a pickup 🚲");
-                    return;
-                }
-
                 selectedVibe =
                     item.dataset.food;
 
-                selectedPickup =
-                    pickupChoice.value;
+                document.querySelectorAll(
+                    "#screen-5 .location-item"
+                ).forEach(location => {
+                    const matchingVibes =
+                        location.dataset.vibes.split(",");
 
-                selectedPickupLocation =
-                    pickupChoice.value === "Yes"
-                        ? pickupLocationInput.value.trim()
-                        : "Not needed";
+                    location.hidden =
+                        !matchingVibes.includes(selectedVibe);
+                });
 
-                if (pickupChoice.value === "Yes" && !selectedPickupLocation) {
-                    alert("Please enter your pickup location 📍");
-                    pickupLocationInput.focus();
-                    return;
-                }
-
+                document.getElementById("location-prompt").textContent =
+                    `Places for a ${selectedVibe.toLowerCase()} date:`;
 
                 localStorage.setItem(
                     "selectedVibe",
                     selectedVibe
                 );
 
-
-
-
-
-
-                const datePlan = {
-                    date: selectedDate,
-                    time: selectedTime,
-                    place: selectedPlace,
-                    vibe: selectedVibe,
-                    pickup: selectedPickup,
-                    pickupLocation: selectedPickupLocation,
-                    confirmed: true
-                    // confirmed: false
-
-                };
-
-                localStorage.setItem(
-                    "datePlan",
-                    JSON.stringify(datePlan)
-                );
-
-
-                // Update confirmation screen
-
-                document.getElementById(
-                    "summary-date"
-                ).textContent =
-                    formatReadableDate(
-                        selectedDate
-                    );
-
-
-                document.getElementById(
-                    "summary-time"
-                ).textContent =
-                    selectedTime;
-
-                document.getElementById(
-                    "ready-time"
-                ).textContent =
-                    getReadyTime(selectedTime);
-
-
-                document.getElementById(
-                    "summary-place"
-                ).textContent =
-                    selectedPlace;
-
-
-                document.getElementById(
-                    "summary-vibe"
-                ).textContent =
-                    selectedVibe;
-
-                document.getElementById(
-                    "summary-pickup"
-                ).textContent =
-                    selectedPickup;
-
-                document.getElementById(
-                    "summary-pickup-location"
-                ).textContent =
-                    selectedPickupLocation;
-
-
-                switchScreen("screen-6");
+                switchScreen("screen-5");
 
             }
         );
 
+    });
+
+    pickupNextButton.addEventListener("click", () => {
+        const pickupChoice =
+            document.querySelector("input[name='pickup']:checked");
+
+        if (!pickupChoice) {
+            alert("Please choose whether you'd like a pickup. 🚲");
+            return;
+        }
+
+        selectedPickup = pickupChoice.value;
+        selectedPickupLocation = selectedPickup === "Yes"
+            ? pickupLocationInput.value.trim()
+            : "Not needed";
+
+        if (selectedPickup === "Yes" && !selectedPickupLocation) {
+            alert("Please enter your pickup address. 📍");
+            pickupLocationInput.focus();
+            return;
+        }
+
+        const datePlan = {
+            date: selectedDate,
+            time: selectedTime,
+            place: selectedPlace,
+            vibe: selectedVibe,
+            pickup: selectedPickup,
+            pickupLocation: selectedPickupLocation,
+            confirmed: true
+        };
+
+        localStorage.setItem("datePlan", JSON.stringify(datePlan));
+
+        document.getElementById("summary-date").textContent =
+            formatReadableDate(selectedDate);
+        document.getElementById("summary-time").textContent = selectedTime;
+        document.getElementById("ready-time").textContent =
+            getReadyTime(selectedTime);
+        document.getElementById("summary-place").textContent = selectedPlace;
+        document.getElementById("summary-vibe").textContent = selectedVibe;
+        document.getElementById("summary-pickup").textContent =
+            selectedPickup === "Yes" ? "Yes, please" : "No, I'll meet you there";
+        document.getElementById("summary-pickup-location").textContent =
+            selectedPickupLocation;
+
+        switchScreen("screen-7");
     });
 
 
@@ -632,7 +604,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `Time: ${selectedTime}`,
                     `Place: ${selectedPlace}`,
                     `Vibe: ${selectedVibe}`,
-                    `Pickup: ${selectedPickup}`,
+                    `Pickup: ${selectedPickup === "Yes" ? "Yes, please" : "No, I'll meet you there"}`,
                     `Pickup location: ${selectedPickupLocation}`
                 ].join("\n");
 
@@ -659,7 +631,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     `Time: ${selectedTime}`,
                     `Place: ${selectedPlace}`,
                     `Vibe: ${selectedVibe}`,
-                    `Pickup: ${selectedPickup}`,
+                    `Pickup: ${selectedPickup === "Yes" ? "Yes, please" : "No, I'll meet you there"}`,
                     `Pickup location: ${selectedPickupLocation}`
                 ].join("\n");
 
